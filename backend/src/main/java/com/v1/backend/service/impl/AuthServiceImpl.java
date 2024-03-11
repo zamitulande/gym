@@ -1,0 +1,57 @@
+package com.v1.backend.service.impl;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.v1.backend.controller.dtos.AuthResponseDTO;
+import com.v1.backend.controller.dtos.AuthenticationRequestDTO;
+import com.v1.backend.controller.dtos.RegisterRequestDTO;
+import com.v1.backend.entities.User;
+import com.v1.backend.repository.UserRepository;
+import com.v1.backend.service.AuthService;
+import com.v1.backend.service.JwtService;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService {
+
+     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+
+    @Override
+    public AuthResponseDTO register(RegisterRequestDTO requestDTO){
+        
+        var user = User.builder()
+                    .name(requestDTO.getName())
+                    .lastname(requestDTO.getLastname())
+                    .identification(requestDTO.getIdentification())
+                    .password(passwordEncoder.encode(requestDTO.getPassword()))
+                    .role(requestDTO.getRole())
+                    .build();
+               
+            userRepository.save(user);
+            var jwtToken = jwtService.generateToken(user);
+            return AuthResponseDTO.builder()
+            .token(jwtToken).build();                            
+    }
+
+    @Override
+    public AuthResponseDTO authenticate(AuthenticationRequestDTO requestDTO) {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                            requestDTO.getIdentification(), 
+                            requestDTO.getPassword())
+        );
+        //traer la identification de la base de datos
+        var user = userRepository.findByIdentification(requestDTO.getIdentification()).orElseThrow();
+        var jwrToken = jwtService.generateToken(user);
+        return AuthResponseDTO.builder().token(jwrToken).build();
+    }
+
+}
