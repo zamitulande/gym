@@ -34,6 +34,10 @@ const Login = () => {
         const postUser = async () =>{            
             try{
                 const res = await clienteAxios.post('/auth/authenticate', user);
+                console.log(res)
+                if(res.data.token && res.data.role == "COACH"){
+                    console.log("el ingresado es coach")
+                }
                 if(res.data.token){
                     dispatch(setLogin(true))
                     dispatch(setToken(res.data.token))
