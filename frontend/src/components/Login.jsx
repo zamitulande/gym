@@ -35,12 +35,7 @@ const Login = () => {
         e.preventDefault();
         const postUser = async () =>{            
             try{
-                const config= {
-                    headers:{
-                        'Authorization': `Bearer${getToken}`
-                    }
-                }
-                const res = await clienteAxios.post('/auth/authenticate', user, config);
+                const res = await clienteAxios.post('/auth/authenticate', user);
                 console.log(res)
                 if(res.data.token){
                     dispatch(setLogin(true))
@@ -103,9 +98,7 @@ const Login = () => {
                         size="small"
                         required />
                 </FormControl>
-                <Link to='/dartboard'>
                 <button type="submit" >login</button>
-                </Link>
             </form>
         </Box>
 
