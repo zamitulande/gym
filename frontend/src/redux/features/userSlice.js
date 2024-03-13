@@ -29,7 +29,6 @@ export const userSlice = createSlice({
         },
         setLogin: (state, action) => {
             state.login = action.payload
-            console.log(action.payload)
         }
     }
 });

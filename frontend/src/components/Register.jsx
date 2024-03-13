@@ -10,7 +10,7 @@ const Register = () => {
     const dispatch = useDispatch();
 
     const getToken = useSelector((state)=> state.user.token);
-
+    console.log(getToken)
     const [user, setUser] = useState({
         name: '',
         lastname: '',
@@ -41,7 +41,7 @@ const Register = () => {
                         'Authorization': `Bearer${getToken}`
                     }
                 }
-                const res = await clienteAxios.post('/auth/register', user, config);
+                const res = await clienteAxios.post('/admin/register/users', user, config);
                 dispatch(setToken(res.data.token))
                 Swal.fire({
                     position: "top-end",

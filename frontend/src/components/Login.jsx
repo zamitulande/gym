@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { setLogin } from '../redux/features/userSlice';
+import { setLogin, setToken } from '../redux/features/userSlice';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -36,9 +36,9 @@ const Login = () => {
         const postUser = async () =>{            
             try{
                 const res = await clienteAxios.post('/auth/authenticate', user);
-                console.log(res)
                 if(res.data.token){
                     dispatch(setLogin(true))
+                    dispatch(setToken(res.data.token))
                 }
                 
             }catch(error){
