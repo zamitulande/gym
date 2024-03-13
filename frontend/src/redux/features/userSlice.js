@@ -23,17 +23,13 @@ export const userSlice = createSlice({
             state.token = action.payload
             guardarTokenJWT(action.payload);
         },
-        eliminarToken: (state) => {
-            state.token = "";
-            eliminarTokenJWT();
-        },
         setLogin: (state, action) => {
             state.login = action.payload
         }
     }
 });
 
-export const { setToken, eliminarToken, setLogin } = userSlice.actions;
+export const { setToken, setLogin } = userSlice.actions;
 
 
 export default userSlice.reducer;

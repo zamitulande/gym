@@ -42,7 +42,6 @@ const Register = () => {
                     }
                 }
                 const res = await clienteAxios.post('/admin/register/users', user, config);
-                dispatch(setToken(res.data.token))
                 Swal.fire({
                     position: "top-end",
                     icon: "success",

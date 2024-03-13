@@ -15,8 +15,6 @@ const Login = () => {
         password: ''
     })
 
-    const getToken = useSelector((state)=> state.user.token);
-    const login = useSelector((state) => state.user.login);
   
 
     const handleBack = () => {

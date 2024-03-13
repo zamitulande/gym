@@ -2,8 +2,6 @@ package com.v1.backend.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +22,7 @@ public class UserController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody UserDTO UserDTO) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        System.out.println("//////////////////"+username);
+    public ResponseEntity<User> createUser(@RequestBody UserDTO UserDTO) {      
         return ResponseEntity.ok(userService.createUser(UserDTO));
     }
 }

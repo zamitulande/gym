@@ -2,7 +2,6 @@ package com.v1.backend.service.impl;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.v1.backend.controller.dtos.AuthResponseDTO;
@@ -18,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImpl implements AuthService {
 
      private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
@@ -34,7 +32,6 @@ public class AuthServiceImpl implements AuthService {
         //traer la identification de la base de datos
         var user = userRepository.findByIdentification(requestDTO.getIdentification()).orElseThrow();
         var jwrToken = jwtService.generateToken(user);
-        System.out.println(jwrToken);
         return AuthResponseDTO.builder().token(jwrToken).build();
     }
 
