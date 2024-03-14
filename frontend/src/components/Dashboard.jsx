@@ -6,7 +6,6 @@ const Dartboard = () => {
     <>
     <div>Data</div>
     <h1>Resgitrar usuario</h1>
-    <Register/>
     </>
     
 

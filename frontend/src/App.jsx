@@ -1,12 +1,33 @@
 import './App.css'
 import { ThemeProvider } from '@mui/material'
-import Routes from './routes/Routes'
 import { getTheme } from './config/Theme'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useState } from 'react'
+import Home from './components/Home'
+import Register from './components/Register'
+import Login from './components/Login'
+import Dashboard from './components/Dashboard'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function App() {
-    return (
+
+  return (
     <ThemeProvider theme={getTheme}>
-      <Routes/>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route
+            path='/register'
+            element={
+              <ProtectedRoute redirectTo='/'>
+                <Register/>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }

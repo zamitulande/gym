@@ -10,7 +10,6 @@ const Register = () => {
     const dispatch = useDispatch();
 
     const getToken = useSelector((state)=> state.user.token);
-    console.log(getToken)
     const [user, setUser] = useState({
         name: '',
         lastname: '',
@@ -18,7 +17,6 @@ const Register = () => {
         password: '',
         role: 0
     })
-
 
     const handleBack = () => {
         navigate("/");
@@ -166,7 +164,6 @@ const Register = () => {
                 <Button type="submit">register</Button>
             </form>
         </Box>
-
     )
 }
 

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { setLogin, setToken } from '../redux/features/userSlice';
+import { setLogin, setRole, setToken } from '../redux/features/userSlice';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -15,12 +15,10 @@ const Login = () => {
         password: ''
     })
 
-  
-
     const handleBack = () => {
         navigate("/");
     };
-    
+
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setUser(prevUser => ({
@@ -29,22 +27,19 @@ const Login = () => {
         }));
     }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const postUser = async () =>{            
-            try{
+        const postUser = async () => {
+            try {
                 const res = await clienteAxios.post('/auth/authenticate', user);
-                console.log(res)
-                if(res.data.token && res.data.role == "COACH"){
-                    console.log("el ingresado es coach")
-                }
-                if(res.data.token){
+                if (res.data.token && res.data.role) {
                     dispatch(setLogin(true))
                     dispatch(setToken(res.data.token))
+                    dispatch(setRole(res.data.role))
+                    navigate("/register");
                 }
-                
-            }catch(error){
-               console.log(error)            
+            } catch (error) {
+                console.log(error)
             }
         }
         postUser();
@@ -100,10 +95,9 @@ const Login = () => {
                         size="small"
                         required />
                 </FormControl>
-                <button type="submit" >login</button>
+                <Button type="submit">login</Button>
             </form>
         </Box>
-
     )
 }
 
