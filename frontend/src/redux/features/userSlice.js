@@ -17,7 +17,8 @@ export const userSlice = createSlice({
     initialState: {
         token: obtenerTokenJWT() || "",
         login: false,
-        role: ""
+        role: "",
+        users: []
     },
     reducers: {
         setToken: (state, action) => {
@@ -29,12 +30,14 @@ export const userSlice = createSlice({
         },
         setRole: (state, action) => {
             state.role = action.payload;
-            console.log(action.payload)
+        },
+        setUsers: (state, action) => {
+            state.users = action.payload;
         }
     }
 });
 
-export const { setToken, setLogin, setRole } = userSlice.actions;
+export const { setToken, setLogin, setRole, setUsers } = userSlice.actions;
 
 
 export default userSlice.reducer;

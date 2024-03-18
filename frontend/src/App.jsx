@@ -26,6 +26,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path='/dashboard'
+            element={
+              <ProtectedRoute redirectTo='/'>
+                <Register/>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -36,7 +36,7 @@ const Login = () => {
                     dispatch(setLogin(true))
                     dispatch(setToken(res.data.token))
                     dispatch(setRole(res.data.role))
-                    navigate("/register");
+                    navigate("/dashboard");
                 }
             } catch (error) {
                 console.log(error)
