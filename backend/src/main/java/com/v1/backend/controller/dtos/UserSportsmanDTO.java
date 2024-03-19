@@ -1,6 +1,6 @@
 package com.v1.backend.controller.dtos;
 
-import java.util.Date;
+
 
 import com.v1.backend.entities.enumerate.Role;
 
@@ -29,9 +29,9 @@ public class UserSportsmanDTO {
 
     private String size;
 
-    private Date start;
+    private String start;
 
-    private Date end;
+    private String end;
 
     private String medical_history;
     

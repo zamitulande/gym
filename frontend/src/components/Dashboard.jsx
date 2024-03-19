@@ -27,6 +27,7 @@ const Dashboard = () => {
     };
 
     const handleDelete = async (id) => {
+        console.log(id)
         Swal.fire({
             title: "Estas seguro?",
             text: "Esta accion no se puede revertir!",
@@ -63,7 +64,6 @@ const Dashboard = () => {
             }
         });
     }
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -72,14 +72,20 @@ const Dashboard = () => {
                         'Authorization': `Bearer${getToken}`
                     }
                 }
-                const res = await clienteAxios.get('admin/dashboard', config);
-                dispatch(setUsers(res.data.content))
+                if (getTypeUser === "coach") {
+                    const res = await clienteAxios.get('admin/dashboard/coach', config);
+                    dispatch(setUsers(res.data.content))
+                }else if(getTypeUser === "sportsman"){
+                    const res = await clienteAxios.get('admin/dashboard/sportsman', config);
+                    dispatch(setUsers(res.data.content))
+                }
+
             } catch (error) {
                 console.log('error al cargar lista inicial ' + error)
             }
         }
         fetchData();
-    }, [])
+    }, [getTypeUser])
     return (
 
         <Box sx={{ flexGrow: 1 }}>
@@ -139,43 +145,48 @@ const Dashboard = () => {
                                         <TableCell>Identificacion</TableCell>
                                         <TableCell>Nombre</TableCell>
                                         <TableCell>Apellido</TableCell>
-                                        <TableCell>Edad</TableCell>
                                         <TableCell>Nivel</TableCell>
+                                        <TableCell>Edad</TableCell>
                                         <TableCell>Peso</TableCell>
                                         <TableCell>Talla</TableCell>
                                         <TableCell>Fecha inicio</TableCell>
                                         <TableCell>fecha fin</TableCell>
+                                        <TableCell>Historia medica</TableCell>
+                                        <TableCell>profesion</TableCell>
                                         <TableCell>Rutina Nº</TableCell>
                                         <TableCell>Acciones</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-
-                                    <TableRow >
-                                        <TableCell align="center">123456</TableCell>
-                                        <TableCell align="center">Lucas</TableCell>
-                                        <TableCell align="center">Ramos</TableCell>
-                                        <TableCell align="center">25</TableCell>
-                                        <TableCell align="center">Principiante</TableCell>
-                                        <TableCell align="center">72.5</TableCell>
-                                        <TableCell align="center">26.8</TableCell>
-                                        <TableCell align="center">15-ene-2024</TableCell>
-                                        <TableCell align="center">20-dic-2024</TableCell>
-                                        <TableCell align="center">18</TableCell>
-                                        <TableCell>
-                                            <Button variant="contained" color="primary" >
-                                                editar
-                                            </Button>
-                                            <Button variant="contained" color="primary" onClick={() => handleDelete(user.id)}>
-                                                eliminar
-                                            </Button>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Button variant="contained" color="primary" >
-                                                asignar rutina
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
+                                        {getUsers.map((user) =>(
+                                              <TableRow key={user.userId}>
+                                              <TableCell align="center">{user.identification}</TableCell>
+                                              <TableCell align="center">{user.name}</TableCell>
+                                              <TableCell align="center">{user.lastname}</TableCell>
+                                              <TableCell align="center">{user.level}</TableCell>
+                                              <TableCell align="center">{user.age}</TableCell>
+                                              <TableCell align="center">{user.weight}</TableCell>
+                                              <TableCell align="center">{user.size}</TableCell>
+                                              <TableCell align="center">{user.start}</TableCell>
+                                              <TableCell align="center">{user.end}</TableCell>
+                                              <TableCell align="center">{user.medical_history}</TableCell>
+                                              <TableCell align="center">{user.profession}</TableCell>
+                                              <TableCell>
+                                                  <Button variant="contained" color="primary" >
+                                                      editar
+                                                  </Button>
+                                                  <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
+                                                      eliminar
+                                                  </Button>
+                                              </TableCell>
+                                              <TableCell>
+                                                  <Button variant="contained" color="primary" >
+                                                      asignar rutina
+                                                  </Button>
+                                              </TableCell>
+                                          </TableRow>
+                                        ))}
+                                  
                                 </TableBody>
                             </Table>
                         </TableContainer>

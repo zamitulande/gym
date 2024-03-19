@@ -1,6 +1,5 @@
 package com.v1.backend.entities;
 
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -21,8 +20,8 @@ public class SportsMan extends User {
     private String age;
     private String weight;
     private String size;
-    private Date start;
-    private Date end;
+    private String start;
+    private String end;
     private String medical_history;
     private String profession;
 
@@ -51,16 +50,16 @@ public class SportsMan extends User {
     public void setSize(String size) {
         this.size = size;
     }
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
     public String getMedical_history() {

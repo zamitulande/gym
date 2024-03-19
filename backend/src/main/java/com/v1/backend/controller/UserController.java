@@ -59,8 +59,8 @@ public class UserController {
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/dashboard")
-    public ResponseEntity<Page<UserDTO>> findAll(@RequestParam(defaultValue = "0") int page,
+    @GetMapping("/dashboard/coach")
+    public ResponseEntity<Page<UserDTO>> findAllCoach(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Page<UserDTO> userpage = userService.findAll(page, size);
         return ResponseEntity.ok(userpage);
@@ -78,5 +78,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMessage));
         }
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/dashboard/sportsman")
+    public ResponseEntity<Page<UserSportsmanDTO>> findAllSportsman(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<UserSportsmanDTO> userpage = userService.findAllSportsman(page, size);
+        return ResponseEntity.ok(userpage);
     }
 }

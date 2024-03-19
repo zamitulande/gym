@@ -7,7 +7,7 @@ import com.v1.backend.controller.dtos.UserSportsmanDTO;
 import com.v1.backend.entities.User;
 
 public interface UserService {
-    
+
     User createUser(UserDTO userDTO);
 
     Page<UserDTO> findAll(int page, int size);
@@ -15,4 +15,6 @@ public interface UserService {
     User createUserSportsman(UserSportsmanDTO sportsmanDTO);
 
     void deleteById(Long id);
+
+    Page<UserSportsmanDTO> findAllSportsman(int page, int size);
 }

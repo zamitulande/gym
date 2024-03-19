@@ -26,6 +26,7 @@ const Register = () => {
         name: '',
         lastname: '',
         identification: '',
+        profession: '',
         level: '',
         age: '',
         weight: '',
@@ -67,7 +68,7 @@ const Register = () => {
                 if(getTypeUser === "coach"){
                     const res = await clienteAxios.post('/admin/register/user-coach', userCoach, config);
                     console.log(res)
-                    //dispatch(setUsers([...getUsers, res.data.data]))
+                    dispatch(setUsers([...getUsers, res.data.data]))
                 }else{
                     const res = await clienteAxios.post('/admin/register/user-sportsman', userSportsMan, config);
                     console.log(res)
@@ -193,7 +194,7 @@ const Register = () => {
                                 id="name"
                                 name="name"
                                 type='text'
-                                placeholder="Escribe aquí tu nombre"
+                                placeholder="Escribe aquí el nombre"
                                 value={userSportsMan.name}
                                 onChange={handleOnChange}
                                 fullWidth
@@ -212,7 +213,7 @@ const Register = () => {
                                 id="lastname"
                                 name="lastname"
                                 type='text'
-                                placeholder="Escribe aquí tu apellido"
+                                placeholder="Escribe aquí el apellido"
                                 value={userSportsMan.lastname}
                                 onChange={handleOnChange}
                                 fullWidth
@@ -231,8 +232,27 @@ const Register = () => {
                                 id="identification"
                                 name="identification"
                                 type='text'
-                                placeholder="Escribe aquí tu identification"
+                                placeholder="Escribe aquí la identification"
                                 value={userSportsMan.identification}
+                                onChange={handleOnChange}
+                                fullWidth
+                                margin="normal"
+                                size="small"
+                                required />
+                        </FormControl>
+                        <FormControl
+                            variant="standard"
+                            fullWidth
+                            style={{ paddingTop: 10 }}>
+                            <InputLabel shrink htmlFor="bootstrap-input">
+                                profesion
+                            </InputLabel>
+                            <TextField sx={{ border: 2, borderRadius: 1 }}
+                                id="profession"
+                                name="profession"
+                                type='text'
+                                placeholder="Escribe aquí la profesion"
+                                value={userSportsMan.profession}
                                 onChange={handleOnChange}
                                 fullWidth
                                 margin="normal"
