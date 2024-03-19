@@ -4,7 +4,7 @@ import React, { useEffect, useState, } from 'react'
 import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUsers } from '../redux/features/userSlice';
+import { setTypeUser, setUsers } from '../redux/features/userSlice';
 import Swal from 'sweetalert2';
 
 const Dashboard = () => {
@@ -15,7 +15,8 @@ const Dashboard = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const getToken = useSelector((state) => state.user.token);
-    const getUsers = useSelector((state) => state.user.users)
+    const getUsers = useSelector((state) => state.user.users);
+    const getTypeUser = useSelector((state) => state.user.typeUser)
 
     const handleOpenDialog = () => {
         navigate("/register")
@@ -84,13 +85,13 @@ const Dashboard = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Button color="inherit" onClick={() => setSelectedItem('Entrenador')}>Entrenador</Button>
-                    <Button color="inherit" onClick={() => setSelectedItem('Deportista')}>Deportista</Button>
-                    <Button color="inherit" onClick={() => setSelectedItem('Logout')}>Logout</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('coach'))}>Entrenador</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('sportsman'))}>Deportista</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('Logout'))}>Logout</Button>
                 </Toolbar>
             </AppBar>
             <div style={{ padding: '20px' }}>
-                {selectedItem === 'Entrenador' && (
+                {getTypeUser === 'coach' && (
                     <div>
                         <Button variant="contained" color="primary" onClick={handleOpenDialog}>
                             Agregar Entrenador
@@ -126,7 +127,7 @@ const Dashboard = () => {
                         </TableContainer>
                     </div>
                 )}
-                {selectedItem === 'Deportista' && (
+                {getTypeUser === 'sportsman' && (
                     <div>
                         <Button variant="contained" color="primary" onClick={handleOpenDialog}>
                             Agregar Deportista

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.backend.controller.dtos.UserDTO;
+import com.v1.backend.controller.dtos.UserSportsmanDTO;
 import com.v1.backend.entities.User;
 import com.v1.backend.exceptions.ApiResponse;
 import com.v1.backend.service.UserService;
@@ -28,7 +29,7 @@ public class UserController {
     private final UserService userService;
 
     @Secured("ROLE_ADMIN")
-    @PostMapping("/register/users")
+    @PostMapping("/register/user-coach")
     public ResponseEntity<Object> createUser(@RequestBody UserDTO UserDTO) {
         User user = userService.createUser(UserDTO);
         if (user != null) {
@@ -42,6 +43,7 @@ public class UserController {
         }
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         if (id != null) {
@@ -62,5 +64,19 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size) {
         Page<UserDTO> userpage = userService.findAll(page, size);
         return ResponseEntity.ok(userpage);
+    }
+
+    @PostMapping("/register/user-sportsman")
+    public ResponseEntity<Object> createUserSportsman(@RequestBody UserSportsmanDTO sportsmanDTO){
+        User user = userService.createUserSportsman(sportsmanDTO);
+        if (user != null) {
+            String message = "Usuario creado exitosamente";
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new ApiResponse(HttpStatus.CREATED.value(), message, user));
+        } else {
+            String errorMessage = "Error al crear el usuario";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMessage));
+        }
     }
 }

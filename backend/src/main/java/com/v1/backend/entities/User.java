@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.v1.backend.conditionals.ConditionalPassword;
 import com.v1.backend.entities.enumerate.Role;
 
 import jakarta.persistence.Entity;
@@ -41,7 +42,7 @@ public class User implements UserDetails {
     @NotBlank
     private String identification;
 
-    @NotBlank
+    @ConditionalPassword(userType = "COACH") // Se valida el password solo para el usuario tipo "COACH"
     private String password;
 
     @Enumerated(EnumType.ORDINAL)

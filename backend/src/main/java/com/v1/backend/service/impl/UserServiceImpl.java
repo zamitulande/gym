@@ -7,7 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.v1.backend.controller.dtos.UserDTO;
+import com.v1.backend.controller.dtos.UserSportsmanDTO;
+import com.v1.backend.entities.SportsMan;
 import com.v1.backend.entities.User;
+import com.v1.backend.entities.enumerate.Role;
 import com.v1.backend.repository.UserRepository;
 import com.v1.backend.service.UserService;
 
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
                         .lastname(userDTO.getLastname())
                         .identification(userDTO.getIdentification())
                         .password(passwordEncoder.encode(userDTO.getPassword()))
-                        .role(userDTO.getRole())
+                        .role(Role.COACH)
                         .build();
         return userRepository.save(user);
     }
@@ -56,6 +59,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);       
+    }
+
+
+    @Override
+    public User createUserSportsman(UserSportsmanDTO sportsmanDTO) {
+        User user = new SportsMan();
+             user.setUserId(sportsmanDTO.getUserId());
+             user.setName(sportsmanDTO.getName());
+             user.setLastname(sportsmanDTO.getLastname());
+             user.setIdentification(sportsmanDTO.getIdentification());
+             user.setRole(Role.SPORTSMAN);
+             ((SportsMan) user).setLevel(sportsmanDTO.getLevel());
+             ((SportsMan) user).setAge(sportsmanDTO.getAge());
+             ((SportsMan) user).setWeight(sportsmanDTO.getWeight());
+             ((SportsMan) user).setSize(sportsmanDTO.getSize());
+             ((SportsMan) user).setStart(sportsmanDTO.getStart());
+             ((SportsMan) user).setEnd(sportsmanDTO.getEnd());
+             ((SportsMan) user).setMedical_history(sportsmanDTO.getMedical_history());
+             ((SportsMan) user).setProfession(sportsmanDTO.getProfession());
+
+        return userRepository.save(user);
     }
 
     
