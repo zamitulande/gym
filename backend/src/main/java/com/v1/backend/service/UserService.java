@@ -7,6 +7,7 @@ import com.v1.backend.controller.dtos.UserSportsmanDTO;
 import com.v1.backend.entities.User;
 
 public interface UserService {
+    
     User createUser(UserDTO userDTO);
 
     Page<UserDTO> findAll(int page, int size);

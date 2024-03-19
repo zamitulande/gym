@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserDTO> findAll(int page, int size) {
           Pageable pageable = PageRequest.of(page, size);
-          Page<User> userPage = userRepository.findAll(pageable);
+          Page<User> userPage = userRepository.findByRole(Role.COACH, pageable);
           
           return userPage
                     .map(user -> UserDTO.builder()
@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
                             .identification(user.getIdentification())
                             .name(user.getName())
                             .lastname(user.getLastname())
+                            .role(Role.COACH)
                             .build());
     }
 
