@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserDTO userDTO) {
         User user = User.builder()
+                        .userId(userDTO.getUserId())
                         .name(userDTO.getName())
                         .lastname(userDTO.getLastname())
                         .identification(userDTO.getIdentification())
@@ -44,11 +45,17 @@ public class UserServiceImpl implements UserService {
           
           return userPage
                     .map(user -> UserDTO.builder()
-                            .id(user.getUserId())
+                            .userId(user.getUserId())
                             .identification(user.getIdentification())
                             .name(user.getName())
                             .lastname(user.getLastname())
                             .build());
+    }
+
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);       
     }
 
     

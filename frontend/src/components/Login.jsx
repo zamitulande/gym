@@ -32,7 +32,7 @@ const Login = () => {
         const postUser = async () => {
             try {
                 const res = await clienteAxios.post('/auth/authenticate', user);
-                if (res.data.token && res.data.role) {
+                if (res.data.token) {
                     dispatch(setLogin(true))
                     dispatch(setToken(res.data.token))
                     dispatch(setRole(res.data.role))

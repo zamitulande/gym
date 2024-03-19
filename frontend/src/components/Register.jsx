@@ -3,13 +3,16 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
-import { setToken } from '../redux/features/userSlice';
+import Swal from 'sweetalert2';
+import { setUsers } from '../redux/features/userSlice';
 
 const Register = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
     const getToken = useSelector((state)=> state.user.token);
+    const getUsers = useSelector((state) => state.user.users)
+
     const [user, setUser] = useState({
         name: '',
         lastname: '',
@@ -19,7 +22,7 @@ const Register = () => {
     })
 
     const handleBack = () => {
-        navigate("/");
+        navigate("/dashboard");
     };
 
     const handleOnChange = (e) => {
@@ -31,7 +34,7 @@ const Register = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(user)
+        navigate("/dashboard")
         const postUser = async () => {
             try {
                 const config= {
@@ -40,6 +43,8 @@ const Register = () => {
                     }
                 }
                 const res = await clienteAxios.post('/admin/register/users', user, config);
+                console.log(res)
+                dispatch(setUsers([...getUsers, res.data.data]))
                 Swal.fire({
                     position: "top-end",
                     icon: "success",

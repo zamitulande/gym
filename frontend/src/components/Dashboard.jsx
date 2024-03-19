@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUsers } from '../redux/features/userSlice';
+import Swal from 'sweetalert2';
 
 const Dashboard = () => {
 
@@ -24,6 +25,44 @@ const Dashboard = () => {
         setOpenDialog(false);
     };
 
+    const handleDelete = async (id) => {
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "Esta accion no se puede revertir!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Eliminar",
+            cancelButtonText: "Cancelar"
+        }).then(async (result) => {
+            try {
+                if (result.isConfirmed) {
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${getToken}`
+                        }
+                    }
+                    const res = await clienteAxios.delete(`admin/delete/${id}`, config);
+                    console.log(res.data.status)
+                    if (res.data.status === 200) {
+                        const usersFilter = getUsers.filter(user => user.userId !== id);
+                        Swal.fire({
+                            title: "¡Borrado!",
+                            text: "El usuario ha sido borrado",
+                            icon: "success"
+                        });
+                        dispatch(setUsers(usersFilter));
+                    }
+                } else {
+                    console.log('Failed to delete user');
+                }
+            } catch (error) {
+                console.log("Error:", error);
+            }
+        });
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -40,7 +79,6 @@ const Dashboard = () => {
         }
         fetchData();
     }, [])
-    console.log(getUsers)
     return (
 
         <Box sx={{ flexGrow: 1 }}>
@@ -69,7 +107,7 @@ const Dashboard = () => {
                                 </TableHead>
                                 <TableBody>
                                     {getUsers.map((user) => (
-                                        <TableRow key={user.id}>
+                                        <TableRow key={user.userId}>
                                             <TableCell>{user.identification}</TableCell>
                                             <TableCell>{user.name}</TableCell>
                                             <TableCell>{user.lastname}</TableCell>
@@ -77,14 +115,12 @@ const Dashboard = () => {
                                                 <Button variant="contained" color="primary" >
                                                     editar
                                                 </Button>
-                                                <Button variant="contained" color="primary" onClick={() => handleDeleteItem(trainer.id)}>
+                                                <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
                                                     eliminar
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
-
-
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -129,7 +165,7 @@ const Dashboard = () => {
                                             <Button variant="contained" color="primary" >
                                                 editar
                                             </Button>
-                                            <Button variant="contained" color="primary" onClick={() => handleDeleteItem(trainer.id)}>
+                                            <Button variant="contained" color="primary" onClick={() => handleDelete(user.id)}>
                                                 eliminar
                                             </Button>
                                         </TableCell>

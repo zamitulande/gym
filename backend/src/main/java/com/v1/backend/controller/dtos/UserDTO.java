@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserDTO {
 
-    private Long id;
+    private Long userId;
     
     private String name; 
 

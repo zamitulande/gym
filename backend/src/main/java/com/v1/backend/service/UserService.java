@@ -9,4 +9,6 @@ public interface UserService {
     User createUser(UserDTO userDTO);
 
     Page<UserDTO> findAll(int page, int size);
+
+    void deleteById(Long id);
 }
