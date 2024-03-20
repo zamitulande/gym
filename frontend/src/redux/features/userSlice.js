@@ -19,7 +19,9 @@ export const userSlice = createSlice({
         login: false,
         role: "",
         users: [],
-        typeUser: ""
+        typeUser: "",
+        userInfo: [],
+        openModal: false
     },
     reducers: {
         setToken: (state, action) => {
@@ -37,11 +39,18 @@ export const userSlice = createSlice({
         },
         setTypeUser: (state, action) => {
             state.typeUser = action.payload;
+        },
+        setOpenModal: (state, action) => {
+            state.openModal = action.payload;
+        },
+        setUserInfo: (state, action) => {
+            state.userInfo = action.payload;
         }
+
     }
 });
 
-export const { setToken, setLogin, setRole, setUsers, setTypeUser } = userSlice.actions;
+export const { setToken, setLogin, setRole, setUsers, setTypeUser, setOpenModal, setUserInfo } = userSlice.actions;
 
 
 export default userSlice.reducer;

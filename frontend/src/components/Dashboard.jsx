@@ -4,8 +4,9 @@ import React, { useEffect, useState, } from 'react'
 import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTypeUser, setUsers } from '../redux/features/userSlice';
+import { setOpenModal, setTypeUser, setUserInfo, setUsers } from '../redux/features/userSlice';
 import Swal from 'sweetalert2';
+import ModalInfo from './ModalInfo';
 
 const Dashboard = () => {
 
@@ -17,6 +18,7 @@ const Dashboard = () => {
     const getToken = useSelector((state) => state.user.token);
     const getUsers = useSelector((state) => state.user.users);
     const getTypeUser = useSelector((state) => state.user.typeUser)
+    const getOpenModal = useSelector((state) => state.user.openModal)
 
     const handleOpenDialog = () => {
         navigate("/register")
@@ -75,7 +77,7 @@ const Dashboard = () => {
                 if (getTypeUser === "coach") {
                     const res = await clienteAxios.get('admin/dashboard/coach', config);
                     dispatch(setUsers(res.data.content))
-                }else if(getTypeUser === "sportsman"){
+                } else if (getTypeUser === "sportsman") {
                     const res = await clienteAxios.get('admin/dashboard/sportsman', config);
                     dispatch(setUsers(res.data.content))
                 }
@@ -86,9 +88,15 @@ const Dashboard = () => {
         }
         fetchData();
     }, [getTypeUser])
+
+    const handleOpenModal = (user) => {
+        dispatch(setOpenModal(!getOpenModal))
+        dispatch(setUserInfo(user))
+    }
     return (
 
         <Box sx={{ flexGrow: 1 }}>
+            {getOpenModal ? <ModalInfo /> : null}
             <AppBar position="static">
                 <Toolbar>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('coach'))}>Entrenador</Button>
@@ -146,47 +154,32 @@ const Dashboard = () => {
                                         <TableCell>Nombre</TableCell>
                                         <TableCell>Apellido</TableCell>
                                         <TableCell>Nivel</TableCell>
-                                        <TableCell>Edad</TableCell>
-                                        <TableCell>Peso</TableCell>
-                                        <TableCell>Talla</TableCell>
-                                        <TableCell>Fecha inicio</TableCell>
-                                        <TableCell>fecha fin</TableCell>
-                                        <TableCell>Historia medica</TableCell>
-                                        <TableCell>profesion</TableCell>
-                                        <TableCell>Rutina Nº</TableCell>
                                         <TableCell>Acciones</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                        {getUsers.map((user) =>(
-                                              <TableRow key={user.userId}>
-                                              <TableCell align="center">{user.identification}</TableCell>
-                                              <TableCell align="center">{user.name}</TableCell>
-                                              <TableCell align="center">{user.lastname}</TableCell>
-                                              <TableCell align="center">{user.level}</TableCell>
-                                              <TableCell align="center">{user.age}</TableCell>
-                                              <TableCell align="center">{user.weight}</TableCell>
-                                              <TableCell align="center">{user.size}</TableCell>
-                                              <TableCell align="center">{user.start}</TableCell>
-                                              <TableCell align="center">{user.end}</TableCell>
-                                              <TableCell align="center">{user.medical_history}</TableCell>
-                                              <TableCell align="center">{user.profession}</TableCell>
-                                              <TableCell>
-                                                  <Button variant="contained" color="primary" >
-                                                      editar
-                                                  </Button>
-                                                  <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
-                                                      eliminar
-                                                  </Button>
-                                              </TableCell>
-                                              <TableCell>
-                                                  <Button variant="contained" color="primary" >
-                                                      asignar rutina
-                                                  </Button>
-                                              </TableCell>
-                                          </TableRow>
-                                        ))}
-                                  
+                                    {getUsers.map((user) => (
+                                        <TableRow key={user.userId}>
+                                            <TableCell align="center">{user.identification}</TableCell>
+                                            <TableCell align="center">{user.name}</TableCell>
+                                            <TableCell align="center">{user.lastname}</TableCell>
+                                            <TableCell align="center">{user.level}</TableCell>
+                                            <TableCell>
+                                                <Button variant="contained" color="primary" onClick={() => handleOpenModal(user)}>
+                                                    ver
+                                                </Button>
+                                                <Button variant="contained" color="primary" >
+                                                    editar
+                                                </Button>
+                                                <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
+                                                    eliminar
+                                                </Button>
+                                                <Button variant="contained" color="primary" >
+                                                    rutina
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
