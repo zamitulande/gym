@@ -1,9 +1,11 @@
 import React from 'react'
 
 const RegisterRoutine = () => {
-  return (
-    <div>RegisterRoutine</div>
-  )
+    return (
+       <Box>
+        
+       </Box>
+    )
 }
 
 export default RegisterRoutine

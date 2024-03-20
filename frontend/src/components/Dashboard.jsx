@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import ModalInfo from './user/ModalInfo'
 import TableSportsman from './user/TableSportsman';
 import TableCoach from './user/TableCoach';
+import RegisterRoutine from './routine/RegisterRoutine';
+import TableRoutine from './routine/TableRoutine';
 
 const Dashboard = () => {
 
@@ -103,7 +105,7 @@ const Dashboard = () => {
                 <Toolbar>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('coach'))}>Entrenador</Button>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('sportsman'))}>Deportista</Button>
-                    <Button color="inherit" onClick={() => dispatch(setTypeUser('Logout'))}>Rutina</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('routine'))}>Rutina</Button>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('Logout'))}>Logout</Button>
                 </Toolbar>
             </AppBar>
@@ -120,6 +122,9 @@ const Dashboard = () => {
                         handleOpenDialog={handleOpenDialog}
                         handleDelete={handleDelete}
                     />
+                )}
+                {getTypeUser === 'routine' && (
+                    <TableRoutine/>
                 )}
             </div>
         </Box>

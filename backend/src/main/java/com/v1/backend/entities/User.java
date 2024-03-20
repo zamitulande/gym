@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @NotBlank
     private String identification;
 
-    @ConditionalPassword(userType = "COACH") // Se valida el password solo para el usuario tipo "COACH"
+    @ConditionalPassword(userType = "COACH") 
     private String password;
 
     @Enumerated(EnumType.ORDINAL)

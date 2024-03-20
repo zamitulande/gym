@@ -26,7 +26,6 @@ public class Routine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long routineId;
     private String name;
-    private String date;
     private String observation;
     private String duration;
 
