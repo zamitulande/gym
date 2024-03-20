@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.v1.backend.controller.dtos.routine.RoutineDTO;
 import com.v1.backend.entities.Routine;
-import com.v1.backend.entities.enumerate.DayWeek;
 import com.v1.backend.repository.RoutineRepository;
 import com.v1.backend.service.RoutineService;
 

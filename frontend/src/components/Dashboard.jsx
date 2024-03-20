@@ -11,6 +11,7 @@ import TableSportsman from './user/TableSportsman';
 import TableCoach from './user/TableCoach';
 import RegisterRoutine from './routine/RegisterRoutine';
 import TableRoutine from './routine/TableRoutine';
+import TableExercise from './exercise/TableExercise';
 
 const Dashboard = () => {
 
@@ -105,7 +106,8 @@ const Dashboard = () => {
                 <Toolbar>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('coach'))}>Entrenador</Button>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('sportsman'))}>Deportista</Button>
-                    <Button color="inherit" onClick={() => dispatch(setTypeUser('routine'))}>Rutina</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('routine'))}>Rutinas</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('exercise'))}>Ejercicios</Button>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('Logout'))}>Logout</Button>
                 </Toolbar>
             </AppBar>
@@ -125,6 +127,9 @@ const Dashboard = () => {
                 )}
                 {getTypeUser === 'routine' && (
                     <TableRoutine/>
+                )}
+                {getTypeUser === 'exercise' && (
+                    <TableExercise/>
                 )}
             </div>
         </Box>

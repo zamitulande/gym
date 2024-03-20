@@ -9,6 +9,7 @@ import Login from './components/auth/Login'
 import Dashboard from './components/Dashboard'
 import ProtectedRoute from './routes/ProtectedRoute'
 import RegisterRoutine from './components/routine/RegisterRoutine'
+import RegisterExercise from './components/exercise/RegisterExercise'
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
             path='/dashboard'
             element={
               <ProtectedRoute redirectTo='/'>
-                <Register/>
+                <Dashboard/>
               </ProtectedRoute>
             }
           />
@@ -40,6 +41,14 @@ function App() {
             element={
               <ProtectedRoute redirectTo='/'>
                 <RegisterRoutine/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/register-exercise'
+            element={
+              <ProtectedRoute redirectTo='/'>
+                <RegisterExercise/>
               </ProtectedRoute>
             }
           />
