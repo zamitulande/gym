@@ -3,6 +3,7 @@ package com.v1.backend.entities;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.annotations.ManyToAny;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,7 +45,7 @@ public class User implements UserDetails {
     @NotBlank
     private String identification;
 
-    @ConditionalPassword(userType = "COACH") 
+    @ConditionalPassword(userType = "COACH") // Se valida el password solo para el usuario tipo "COACH"
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
@@ -84,5 +87,13 @@ public class User implements UserDetails {
         return true;
     }
 
+
+    @ManyToAny
+    @JoinTable(
+        name = "coach_routine",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "routine_id")
+    )
+    private List<Routine> routines;
 
 }

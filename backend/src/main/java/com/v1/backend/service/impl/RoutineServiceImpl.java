@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.v1.backend.controller.dtos.routine.RoutineDTO;
 import com.v1.backend.entities.Routine;
+import com.v1.backend.entities.enumerate.DayWeek;
 import com.v1.backend.repository.RoutineRepository;
 import com.v1.backend.service.RoutineService;
 
@@ -23,7 +24,7 @@ public class RoutineServiceImpl implements RoutineService {
                 .date(routineDTO.getDate())
                 .observation(routineDTO.getObservation())
                 .duration(routineDTO.getDuration())
-                .exercises(null)
+                .dayWeek(routineDTO.getDayWeek())
                 .build();
 
          return routineRepository.save(routine);

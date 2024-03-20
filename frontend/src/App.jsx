@@ -8,6 +8,7 @@ import Register from './components//user/Register'
 import Login from './components/auth/Login'
 import Dashboard from './components/Dashboard'
 import ProtectedRoute from './routes/ProtectedRoute'
+import RegisterRoutine from './components/routine/RegisterRoutine'
 
 function App() {
 
@@ -31,6 +32,14 @@ function App() {
             element={
               <ProtectedRoute redirectTo='/'>
                 <Register/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/register-routine'
+            element={
+              <ProtectedRoute redirectTo='/'>
+                <RegisterRoutine/>
               </ProtectedRoute>
             }
           />

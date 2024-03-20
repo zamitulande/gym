@@ -2,10 +2,13 @@ package com.v1.backend.entities;
 
 import java.util.List;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -76,13 +79,11 @@ public class SportsMan extends User {
         this.profession = profession;
     }
 
-      @OneToMany(
-        cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-        name = "user_id",
-        referencedColumnName = "userId"
+    @ManyToAny
+    @JoinTable(
+        name = "sportsman_routine",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "routine_id")
     )
     private List<Routine> routines;
     
