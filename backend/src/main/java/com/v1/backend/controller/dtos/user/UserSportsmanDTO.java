@@ -1,4 +1,4 @@
-package com.v1.backend.controller.dtos;
+package com.v1.backend.controller.dtos.user;
 
 
 

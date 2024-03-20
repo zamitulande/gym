@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.v1.backend.controller.dtos.UserDTO;
-import com.v1.backend.controller.dtos.UserSportsmanDTO;
+import com.v1.backend.controller.dtos.user.UserDTO;
+import com.v1.backend.controller.dtos.user.UserSportsmanDTO;
 import com.v1.backend.entities.User;
 import com.v1.backend.exceptions.ApiResponse;
 import com.v1.backend.service.UserService;

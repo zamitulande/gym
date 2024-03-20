@@ -24,6 +24,7 @@ public class SportsMan extends User {
     private String end;
     private String medical_history;
     private String profession;
+    //fotografia
 
 
     public String getLevel() {

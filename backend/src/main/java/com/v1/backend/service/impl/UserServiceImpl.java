@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.v1.backend.controller.dtos.UserDTO;
-import com.v1.backend.controller.dtos.UserSportsmanDTO;
+import com.v1.backend.controller.dtos.user.UserDTO;
+import com.v1.backend.controller.dtos.user.UserSportsmanDTO;
 import com.v1.backend.entities.SportsMan;
 import com.v1.backend.entities.User;
 import com.v1.backend.entities.enumerate.Role;

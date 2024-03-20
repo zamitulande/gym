@@ -2,9 +2,9 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typo
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import clienteAxios from '../config/Axios';
+import clienteAxios from '../../config/Axios';
 import Swal from 'sweetalert2';
-import { setUsers } from '../redux/features/userSlice';
+import { setUsers } from '../../redux/features/userSlice';
 
 const Register = () => {
     const navigate = useNavigate()

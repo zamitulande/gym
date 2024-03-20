@@ -1,4 +1,6 @@
-package com.v1.backend.controller.dtos;
+package com.v1.backend.controller.dtos.user;
+
+import com.v1.backend.entities.enumerate.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthenticationRequestDTO {
+public class UserDTO {
+
+    private Long userId;
+    
+    private String name; 
+
+    private String lastname;
 
     private String identification;
+
     private String password;
+
+    private Role role;
 }

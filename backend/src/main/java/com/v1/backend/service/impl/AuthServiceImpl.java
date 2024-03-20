@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.v1.backend.controller.dtos.AuthResponseDTO;
-import com.v1.backend.controller.dtos.AuthenticationRequestDTO;
+import com.v1.backend.controller.dtos.user.AuthResponseDTO;
+import com.v1.backend.controller.dtos.user.AuthenticationRequestDTO;
 import com.v1.backend.entities.User;
 import com.v1.backend.repository.UserRepository;
 import com.v1.backend.service.AuthService;

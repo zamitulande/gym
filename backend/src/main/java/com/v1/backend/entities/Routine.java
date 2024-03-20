@@ -1,6 +1,5 @@
 package com.v1.backend.entities;
 
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +26,9 @@ public class Routine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long routineId;
     private String name;
-    private Date date;
+    private String date;
+    private String observation;
+    private String duration;
 
     @OneToMany(
         cascade = CascadeType.ALL,

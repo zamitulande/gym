@@ -22,4 +22,6 @@ public class Exercises {
     private Long exerciseId;
     private String name;
     private String observations;
+    //repeticiones
+    //peso alsar
 }

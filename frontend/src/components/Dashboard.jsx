@@ -6,7 +6,9 @@ import clienteAxios from '../config/Axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpenModal, setTypeUser, setUserInfo, setUsers } from '../redux/features/userSlice';
 import Swal from 'sweetalert2';
-import ModalInfo from './ModalInfo';
+import ModalInfo from './user/ModalInfo'
+import TableSportsman from './user/TableSportsman';
+import TableCoach from './user/TableCoach';
 
 const Dashboard = () => {
 
@@ -101,89 +103,23 @@ const Dashboard = () => {
                 <Toolbar>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('coach'))}>Entrenador</Button>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('sportsman'))}>Deportista</Button>
+                    <Button color="inherit" onClick={() => dispatch(setTypeUser('Logout'))}>Rutina</Button>
                     <Button color="inherit" onClick={() => dispatch(setTypeUser('Logout'))}>Logout</Button>
                 </Toolbar>
             </AppBar>
             <div style={{ padding: '20px' }}>
                 {getTypeUser === 'coach' && (
-                    <div>
-                        <Button variant="contained" color="primary" onClick={handleOpenDialog}>
-                            Agregar Entrenador
-                        </Button>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center" >Identificacion</TableCell>
-                                        <TableCell align="center" >Nombre</TableCell>
-                                        <TableCell align="center" >Apellido</TableCell>
-                                        <TableCell align="center" >Acciones</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {getUsers.map((user) => (
-                                        <TableRow key={user.userId}>
-                                            <TableCell>{user.identification}</TableCell>
-                                            <TableCell>{user.name}</TableCell>
-                                            <TableCell>{user.lastname}</TableCell>
-                                            <TableCell>
-                                                <Button variant="contained" color="primary" >
-                                                    editar
-                                                </Button>
-                                                <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
-                                                    eliminar
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
+                    <TableCoach
+                        handleOpenDialog={handleOpenDialog}
+                        handleDelete={handleDelete}
+                    />
                 )}
                 {getTypeUser === 'sportsman' && (
-                    <div>
-                        <Button variant="contained" color="primary" onClick={handleOpenDialog}>
-                            Agregar Deportista
-                        </Button>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Identificacion</TableCell>
-                                        <TableCell>Nombre</TableCell>
-                                        <TableCell>Apellido</TableCell>
-                                        <TableCell>Nivel</TableCell>
-                                        <TableCell>Acciones</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {getUsers.map((user) => (
-                                        <TableRow key={user.userId}>
-                                            <TableCell align="center">{user.identification}</TableCell>
-                                            <TableCell align="center">{user.name}</TableCell>
-                                            <TableCell align="center">{user.lastname}</TableCell>
-                                            <TableCell align="center">{user.level}</TableCell>
-                                            <TableCell>
-                                                <Button variant="contained" color="primary" onClick={() => handleOpenModal(user)}>
-                                                    ver
-                                                </Button>
-                                                <Button variant="contained" color="primary" >
-                                                    editar
-                                                </Button>
-                                                <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
-                                                    eliminar
-                                                </Button>
-                                                <Button variant="contained" color="primary" >
-                                                    rutina
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
+                    <TableSportsman
+                        handleOpenModal={handleOpenModal}
+                        handleOpenDialog={handleOpenDialog}
+                        handleDelete={handleDelete}
+                    />
                 )}
             </div>
         </Box>

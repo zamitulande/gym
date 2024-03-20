@@ -1,10 +1,9 @@
 import { Box, Button, FormControl, InputLabel, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import clienteAxios from '../config/Axios';
-import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
-import { setLogin, setRole, setToken } from '../redux/features/userSlice';
+import React, { useState } from 'react'
+import {  useNavigate } from 'react-router-dom';
+import clienteAxios from '../../config/Axios';
+import { useDispatch } from 'react-redux';
+import { setLogin, setRole, setToken } from '../../redux/features/userSlice';
 
 const Login = () => {
     const navigate = useNavigate()

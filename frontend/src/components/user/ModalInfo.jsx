@@ -1,7 +1,7 @@
 import { Box, Button, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setOpenModal } from '../redux/features/userSlice';
+import { setOpenModal } from '../../redux/features/userSlice';
 
 const ModalInfo = () => {
 

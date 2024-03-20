@@ -32,6 +32,7 @@ public class Measures {
     private String cintura;
     private String antebrazo;
     private String masa_corporal;
+    //fecha
 
  
 }

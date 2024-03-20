@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.v1.backend.controller.dtos.AuthResponseDTO;
-import com.v1.backend.controller.dtos.AuthenticationRequestDTO;
+import com.v1.backend.controller.dtos.user.AuthResponseDTO;
+import com.v1.backend.controller.dtos.user.AuthenticationRequestDTO;
 import com.v1.backend.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
