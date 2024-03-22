@@ -1,8 +1,5 @@
 package com.v1.backend.service.impl;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -70,21 +67,6 @@ public class UserServiceImpl implements UserService {
         user.setIdentification(sportsmanDTO.getIdentification());
         user.setRole(Role.SPORTSMAN);
 
-        // Convertir las fechas al formato deseado
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-
-        // Convertir la fecha de inicio
-        LocalDate startDate = LocalDate.parse(sportsmanDTO.getStart().substring(0, 10));
-        String formattedStartDate = startDate.format(formatter);
-
-        // Convertir la fecha de fin
-        LocalDate endDate = LocalDate.parse(sportsmanDTO.getEnd().substring(0, 10));
-        String formattedEndDate = endDate.format(formatter);
-
-        // Asignar las fechas formateadas al usuario SportsMan
-        ((SportsMan) user).setStart(formattedStartDate);
-        ((SportsMan) user).setEnd(formattedEndDate);
-
         ((SportsMan) user).setLevel(sportsmanDTO.getLevel());
         ((SportsMan) user).setAge(sportsmanDTO.getAge());
         ((SportsMan) user).setWeight(sportsmanDTO.getWeight());
@@ -110,8 +92,6 @@ public class UserServiceImpl implements UserService {
                         .age(((SportsMan) user).getAge())
                         .weight(((SportsMan) user).getWeight())
                         .size(((SportsMan) user).getSize())
-                        .start(((SportsMan) user).getStart())
-                        .end(((SportsMan) user).getEnd())
                         .medical_history(((SportsMan) user).getMedical_history())
                         .profession(((SportsMan) user).getProfession())
                         .role(Role.SPORTSMAN)

@@ -1,5 +1,8 @@
 package com.v1.backend.controller.dtos.user;
 
+import java.util.List;
+
+import com.v1.backend.entities.DayWeek;
 import com.v1.backend.entities.enumerate.Role;
 
 import lombok.AllArgsConstructor;
@@ -24,4 +27,6 @@ public class UserDTO {
     private String password;
 
     private Role role;
+
+    private List<DayWeek> dayWeek;
 }

@@ -1,8 +1,18 @@
 import { Box, Button, Checkbox, FormControl, FormControlLabel, InputLabel, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import clienteAxios from '../../config/Axios';
+import { useSelector } from 'react-redux';
 
 const RegisterRoutine = () => {
+
+    const [userId, setUserId] = useState();
+    const [fecha, setFecha] = useState('');
+    const [name, setNombreRutina] = useState('');
+    const [exercises, setEjercicios] = useState(["ejercicio 1"]);
+    const [observaciones, setObservaciones] = useState(['ninguna']);
+    const [repeticiones, setRepeticiones] = useState(['99']);
+    const [levantarPeso, setLevantarPeso] = useState(['21']);
 
     const navigate = useNavigate()
 
@@ -11,6 +21,8 @@ const RegisterRoutine = () => {
         date: "",
         observation: ""
     })
+    const getToken = useSelector((state) => state.user.token);
+    const getExercises = useSelector((state) => state.exercise.exercises)
 
     const [selectedExercises, setSelectedExercises] = useState([]);
 
@@ -36,18 +48,44 @@ const RegisterRoutine = () => {
 
     }
 
-    const handleSubmit = () => {
-        console.log("Rutina:", routine);
-        console.log("Ejercicios seleccionados:", selectedExercises);
-    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    const exercises = [
-        "Ejercicio 1",
-        "Ejercicio 2",
-        "Ejercicio 3",
-        // Agrega más ejercicios según necesites
-    ];
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer${getToken}`
+                }
+            }
+            const response = await clienteAxios.post(
+                `/admin/usuarios/${userId}/rutina`,
+                {
+                    userId,
+                    fecha,
+                    name,
+                    exercises,
+                    observations: observaciones,
+                    repeticiones: repeticiones,
+                    levantar_peso: levantarPeso
+                }, config
+            );
+
+            console.log(response.data); // Maneja la respuesta del backend aquí
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+        }
+    };
+
+
+    
     return (
+
+       <>
+        <form onSubmit={handleSubmit}>
+
+
+            <button type="submit">Enviar</button>
+        </form>
         <Box sx={{ maxWidth: { xs: 330 } }}>
             <Button onClick={handleBack}>Regresar</Button>
             <Box sx={{
@@ -65,15 +103,55 @@ const RegisterRoutine = () => {
                     fullWidth
                     style={{ paddingTop: 10 }}>
                     <InputLabel shrink htmlFor="bootstrap-input">
-                        nombre
+                        id de usuario
+                    </InputLabel>
+                    <TextField sx={{ border: 2, borderRadius: 1 }}
+                        id="userId"
+                        name="userId"
+                        type='text'
+                        placeholder="Escribe nombre de la rutina"
+                        value={userId}
+                        onChange={(e) => setUserId(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        size="small"
+                        required />
+                </FormControl>
+
+                <FormControl
+                    variant="standard"
+                    fullWidth
+                    style={{ paddingTop: 10 }}>
+                    <InputLabel shrink htmlFor="bootstrap-input">
+                        fecha
+                    </InputLabel>
+                    <TextField sx={{ border: 2, borderRadius: 1 }}
+                        id="fecha"
+                        name="fecha"
+                        type='date'
+                        placeholder="Escribe nombre de la rutina"
+                        value={fecha}
+                        onChange={(e) => setFecha(e.target.value)}
+                        fullWidth
+                        margin="normal"
+                        size="small"
+                        required />
+                </FormControl>
+
+                <FormControl
+                    variant="standard"
+                    fullWidth
+                    style={{ paddingTop: 10 }}>
+                    <InputLabel shrink htmlFor="bootstrap-input">
+                        nombre rutina
                     </InputLabel>
                     <TextField sx={{ border: 2, borderRadius: 1 }}
                         id="name"
                         name="name"
                         type='text'
                         placeholder="Escribe nombre de la rutina"
-                        value={routine.name}
-                        onChange={handleOnChange}
+                        value={name}
+                        onChange={(e) => setNombreRutina(e.target.value)}
                         fullWidth
                         margin="normal"
                         size="small"
@@ -81,12 +159,18 @@ const RegisterRoutine = () => {
                 </FormControl>
 
 
-                 {/* Checkboxes para los ejercicios */}
-                 <FormControl component="fieldset" style={{ marginTop: 10 }}>
+                {/* Checkboxes para los ejercicios */}
+                <FormControl component="fieldset" style={{ marginTop: 10 }}>
                     <Box>
-                        {exercises.map((exercise, index) => (
-                            <FormControlLabel key={index} control={<Checkbox value={exercise} onChange={handleCheckboxChange} />} label={exercise} />
-                        ))}
+                        {getExercises.map((exercise, index) => (
+                            <>
+                                 <FormControlLabel key={exercise.exerciseId} control={<Checkbox value={exercise.name} onChange={handleCheckboxChange} />} label={exercise.name} />
+                               
+                            </>
+                           
+                       
+                        
+                       ))}
                     </Box>
                 </FormControl>
 
@@ -96,14 +180,37 @@ const RegisterRoutine = () => {
                 </Typography>
                 <ul>
                     {selectedExercises.map((exercise, index) => (
-                        <li key={index}>{exercise}</li>
+                        <>
+                            <li key={index}>{exercise}</li>
+                        {exercise && (
+                            <>
+                                 <TextField
+                                value={observaciones[index]}
+                                onChange={(e) => handleObservationsChange(index, e.target.value)}
+                                placeholder={`Observaciones ${index + 1}`}
+                            />
+                            <TextField
+                                value={repeticiones[index]}
+                                onChange={(e) => handleRepetitionsChange(index, e.target.value)}
+                                placeholder={`Repeticiones ${index + 1}`}
+                            />
+                            <TextField
+                                value={levantarPeso[index]}
+                                onChange={(e) => handleLiftingWeightsChange(index, e.target.value)}
+                                placeholder={`Levantar peso ${index + 1}`}
+                            />
+                            </>
+                        )}
+                        </>
                     ))}
                 </ul>
 
+                <button onClick={() => setEjercicios([...ejercicios, ''])}>Agregar Ejercicio</button>
 
                 <Button variant="contained" type="submit" style={{ marginTop: 10 }}>Enviar</Button>
             </form>
         </Box>
+       </>
     )
 }
 

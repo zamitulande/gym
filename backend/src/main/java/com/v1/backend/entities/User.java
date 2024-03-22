@@ -3,7 +3,6 @@ package com.v1.backend.entities;
 import java.util.Collection;
 import java.util.List;
 
-import org.hibernate.annotations.ManyToAny;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -87,13 +86,19 @@ public class User implements UserDetails {
         return true;
     }
 
-
-    @ManyToAny
-    @JoinTable(
-        name = "coach_routine",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "routine_id")
+    @OneToMany
+    @JoinColumn(
+        name = "user_id",
+        referencedColumnName = "userId"
     )
-    private List<Routine> routines;
+    private List<DayWeek> dayWeek;
+
+
+    @OneToMany
+    @JoinColumn(
+        name = "user_id",
+        referencedColumnName = "userId"
+    )
+    private List<Measures> measures;
 
 }

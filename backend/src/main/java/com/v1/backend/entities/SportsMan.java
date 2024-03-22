@@ -1,15 +1,6 @@
 package com.v1.backend.entities;
 
-import java.util.List;
-
-import org.hibernate.annotations.ManyToAny;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -23,11 +14,8 @@ public class SportsMan extends User {
     private String age;
     private String weight;
     private String size;
-    private String start;
-    private String end;
     private String medical_history;
     private String profession;
-    //fotografia
 
 
     public String getLevel() {
@@ -54,18 +42,6 @@ public class SportsMan extends User {
     public void setSize(String size) {
         this.size = size;
     }
-    public String getStart() {
-        return start;
-    }
-    public void setStart(String start) {
-        this.start = start;
-    }
-    public String getEnd() {
-        return end;
-    }
-    public void setEnd(String end) {
-        this.end = end;
-    }
     public String getMedical_history() {
         return medical_history;
     }
@@ -77,25 +53,8 @@ public class SportsMan extends User {
     }
     public void setProfession(String profession) {
         this.profession = profession;
-    }
+    }    
 
-    @ManyToAny
-    @JoinTable(
-        name = "sportsman_routine",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "routine_id")
-    )
-    private List<Routine> routines;
     
-
-    @OneToMany(
-        cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-        name = "user_id",
-        referencedColumnName = "userId"
-    )
-    private List<Measures> measures;
     
 }

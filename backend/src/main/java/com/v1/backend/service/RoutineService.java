@@ -5,5 +5,5 @@ import com.v1.backend.entities.Routine;
 
 public interface RoutineService {
     
-    Routine createRoutine(RoutineDTO routineDTO);
+    Routine createRoutine(Long userId, RoutineDTO routineDTO);
 }

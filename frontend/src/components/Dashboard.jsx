@@ -12,6 +12,7 @@ import TableCoach from './user/TableCoach';
 import RegisterRoutine from './routine/RegisterRoutine';
 import TableRoutine from './routine/TableRoutine';
 import TableExercise from './exercise/TableExercise';
+import { setExercises } from '../redux/features/exerciseSlice';
 
 const Dashboard = () => {
 
@@ -85,6 +86,9 @@ const Dashboard = () => {
                 } else if (getTypeUser === "sportsman") {
                     const res = await clienteAxios.get('admin/dashboard/sportsman', config);
                     dispatch(setUsers(res.data.content))
+                } else if (getTypeUser === "exercise" || getTypeUser === "routine"){
+                    const res = await clienteAxios.get('admin/dashboard/all-exercise', config);
+                    dispatch(setExercises(res.data))
                 }
 
             } catch (error) {

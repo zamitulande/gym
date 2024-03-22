@@ -47,9 +47,8 @@ function App() {
           <Route
             path='/register-exercise'
             element={
-              <ProtectedRoute redirectTo='/'>
                 <RegisterExercise/>
-              </ProtectedRoute>
+           
             }
           />
         </Routes>

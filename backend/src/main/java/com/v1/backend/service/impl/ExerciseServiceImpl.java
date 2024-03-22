@@ -1,5 +1,7 @@
 package com.v1.backend.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,11 @@ public class ExerciseServiceImpl implements ExercisesService {
                     .build();
         
             return exerciseRepository.save(exercises);
+    }
+
+    @Override
+    public List<Exercises> findAll() {
+      return exerciseRepository.findAll();
     }
     
 }

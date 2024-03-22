@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,18 +19,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Routine {
+@Table(name = "dayweek")
+public class DayWeek {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long routineId;
-    private String name;
+    private Long dayId;
+    private String fecha;
 
 
     @OneToMany
     @JoinColumn(
-        name = "routine_id",
-        referencedColumnName = "routineId"
+        name = "day_id",
+        referencedColumnName = "dayId"
     )
-    private List<Exercises> exercises;
+    private List<Routine> rutinas;
 }

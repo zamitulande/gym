@@ -31,8 +31,6 @@ const ModalInfo = () => {
                                         <TableCell>Edad</TableCell>
                                         <TableCell>Peso</TableCell>
                                         <TableCell>Talla</TableCell>
-                                        <TableCell>Fecha inicio</TableCell>
-                                        <TableCell>fecha fin</TableCell>
                                         <TableCell>Historia medica</TableCell>
                                         <TableCell>profesion</TableCell>
                                     </TableRow>
@@ -42,8 +40,6 @@ const ModalInfo = () => {
                                             <TableCell align="center">{user.age}</TableCell>
                                             <TableCell align="center">{user.weight}</TableCell>
                                             <TableCell align="center">{user.size}</TableCell>
-                                            <TableCell align="center">{user.start}</TableCell>
-                                            <TableCell align="center">{user.end}</TableCell>
                                             <TableCell align="center">{user.medical_history}</TableCell>
                                             <TableCell align="center">{user.profession}</TableCell>
                                         </TableRow>

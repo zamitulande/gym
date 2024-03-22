@@ -2,8 +2,8 @@ package com.v1.backend.controller.dtos.routine;
 
 import java.util.List;
 
+import com.v1.backend.entities.DayWeek;
 import com.v1.backend.entities.Exercises;
-import com.v1.backend.entities.enumerate.DayWeek;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,15 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RoutineDTO {
-    
-    
-    private Long routineId;
+
+    private Long userId;
+    private String fecha;
     private String name;
-    private String date;
-    private String observation;
-    private String duration;
+    private List<String> exercises;
 
-    private DayWeek dayWeek;
-
-    private List<Exercises> exercises;
+    private List<String> observations;
+    private List<String> repeticiones;
+    private List<String> levantar_peso;
 }

@@ -336,42 +336,7 @@ const Register = () => {
                                 size="small"
                                 required />
                         </FormControl>
-                        <FormControl
-                            variant="standard"
-                            fullWidth
-                            style={{ paddingTop: 10 }}>
-                            <InputLabel shrink htmlFor="bootstrap-input">
-                                Fecha inicio
-                            </InputLabel>
-                            <TextField sx={{ border: 2, borderRadius: 1 }}
-                                id="start"
-                                name='start'
-                                type='date'
-                                value={userSportsMan.start}
-                                onChange={handleOnChange}
-                                fullWidth
-                                margin="normal"
-                                size="small"
-                                required />
-                        </FormControl>
-                        <FormControl
-                            variant="standard"
-                            fullWidth
-                            style={{ paddingTop: 10 }}>
-                            <InputLabel shrink htmlFor="bootstrap-input">
-                                Fecha fin
-                            </InputLabel>
-                            <TextField sx={{ border: 2, borderRadius: 1 }}
-                                id="end"
-                                name='end'
-                                type='date'
-                                value={userSportsMan.end}
-                                onChange={handleOnChange}
-                                fullWidth
-                                margin="normal"
-                                size="small"
-                                required />
-                        </FormControl>
+
                         <FormControl
                             variant="standard"
                             fullWidth

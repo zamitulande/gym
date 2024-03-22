@@ -1,6 +1,8 @@
 import { Box, Button, Checkbox, FormControl, FormControlLabel, InputLabel, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import clienteAxios from '../../config/Axios';
 
 const RegisterExercise = () => {
 
@@ -9,19 +11,31 @@ const RegisterExercise = () => {
         navigate("/dashboard");
     };
 
+    const getToken = useSelector((state) => state.user.token);
+
 
     const [exercise, setExercise] = useState({
         name:""
     })
 
-    const handleSubmit = () => {
-        console.log("Rutina:", routine);
-        console.log("Ejercicios seleccionados:", selectedExercises);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer${getToken}`
+                }
+            }
+            const response = await clienteAxios.post("admin/register/exercise", exercise, config);
+            console.log(response.data); // Maneja la respuesta del backend aquí
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+        }
     }
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;
-        setRoutine(prevUser => ({
+        setExercise(prevUser => ({
             ...prevUser,
             [name]: value
         }));
