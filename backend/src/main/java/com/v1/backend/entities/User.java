@@ -91,7 +91,7 @@ public class User implements UserDetails {
         name = "user_id",
         referencedColumnName = "userId"
     )
-    private List<DayWeek> dayWeek;
+    public List<DayWeek> dayWeek;
 
 
     @OneToMany

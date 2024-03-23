@@ -54,7 +54,7 @@ public class RoutineServiceImpl implements RoutineService {
         // Asignar la rutina a la fecha
         List<Routine> rutinas = new ArrayList<>();
         rutinas.add(routine);
-        dayWeek.setRutinas(rutinas);
+        dayWeek.setRoutines(rutinas);
         dayWeekRepository.save(dayWeek);
 
         // Crear y asignar los ejercicios a la rutina

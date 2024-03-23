@@ -1,6 +1,7 @@
 package com.v1.backend.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -86,5 +87,11 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size) {
         Page<UserSportsmanDTO> userpage = userService.findAllSportsman(page, size);
         return ResponseEntity.ok(userpage);
+    }
+
+    @GetMapping("/search/{identification}")
+    public ResponseEntity<Page<Object[]>> getUserDetails(@PathVariable String identification, Pageable pageable) {
+        Page<Object[]> userDetailsPage = userService.findRoutineByUser(identification, pageable);
+        return ResponseEntity.ok(userDetailsPage);
     }
 }

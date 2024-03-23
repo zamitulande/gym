@@ -33,5 +33,5 @@ public class DayWeek {
         name = "day_id",
         referencedColumnName = "dayId"
     )
-    private List<Routine> rutinas;
+    private List<Routine> routines;
 }

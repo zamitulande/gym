@@ -98,4 +98,10 @@ public class UserServiceImpl implements UserService {
                         .build());
     }
 
+    @Override
+    public Page<Object[]> findRoutineByUser(String identification, Pageable pageable) {
+      return userRepository.findUserRoutine(identification, pageable);
+    }
+
+    
 }

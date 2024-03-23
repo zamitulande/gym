@@ -28,6 +28,7 @@ const RegisterExercise = () => {
             }
             const response = await clienteAxios.post("admin/register/exercise", exercise, config);
             console.log(response.data); // Maneja la respuesta del backend aquí
+            setExercise("")
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
