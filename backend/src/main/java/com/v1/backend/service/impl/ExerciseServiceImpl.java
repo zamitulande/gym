@@ -28,8 +28,8 @@ public class ExerciseServiceImpl implements ExercisesService {
     }
 
     @Override
-    public List<Exercises> findAll() {
-      return exerciseRepository.findAll();
+    public List<String> findUniqueExerciseNames() {
+      return exerciseRepository.findUniqueExerciseNames();
     }
     
 }

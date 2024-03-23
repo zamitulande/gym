@@ -86,7 +86,7 @@ const Dashboard = () => {
                 } else if (getTypeUser === "sportsman") {
                     const res = await clienteAxios.get('admin/dashboard/sportsman', config);
                     dispatch(setUsers(res.data.content))
-                } else if (getTypeUser === "exercise" || getTypeUser === "routine"){
+                } else if (getTypeUser === "exercise"){
                     const res = await clienteAxios.get('admin/dashboard/all-exercise', config);
                     dispatch(setExercises(res.data))
                 }
@@ -97,7 +97,7 @@ const Dashboard = () => {
         }
         fetchData();
     }, [getTypeUser])
-
+    
     const handleOpenModal = (user) => {
         dispatch(setOpenModal(!getOpenModal))
         dispatch(setUserInfo(user))

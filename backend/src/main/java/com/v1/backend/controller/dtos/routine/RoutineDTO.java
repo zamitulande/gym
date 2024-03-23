@@ -2,8 +2,6 @@ package com.v1.backend.controller.dtos.routine;
 
 import java.util.List;
 
-import com.v1.backend.entities.DayWeek;
-import com.v1.backend.entities.Exercises;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

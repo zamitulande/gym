@@ -9,5 +9,5 @@ public interface ExercisesService {
     
     Exercises createExercise (ExercisesDTO exercisesDTO);
 
-    List<Exercises> findAll();
+    List<String> findUniqueExerciseNames();
 }

@@ -8,6 +8,7 @@ export const exerciseSlice =createSlice({
     reducers:{
         setExercises: (state, action) => {
             state.exercises = action.payload
+            console.log(action.payload)
         }
     }
 });

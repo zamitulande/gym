@@ -21,7 +21,8 @@ export const userSlice = createSlice({
         users: [],
         typeUser: "",
         userInfo: [],
-        openModal: false
+        openModal: false, 
+        idAddRoutine: null
     },
     reducers: {
         setToken: (state, action) => {
@@ -45,12 +46,15 @@ export const userSlice = createSlice({
         },
         setUserInfo: (state, action) => {
             state.userInfo = action.payload;
+        },
+        setIdAddRoutine: (state, action) =>{
+            state.idAddRoutine = action.payload
         }
 
     }
 });
 
-export const { setToken, setLogin, setRole, setUsers, setTypeUser, setOpenModal, setUserInfo } = userSlice.actions;
+export const { setToken, setLogin, setRole, setUsers, setTypeUser, setOpenModal, setUserInfo, setIdAddRoutine } = userSlice.actions;
 
 
 export default userSlice.reducer;

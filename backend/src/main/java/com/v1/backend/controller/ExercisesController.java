@@ -42,7 +42,7 @@ public class ExercisesController {
     }
 
     @GetMapping("/dashboard/all-exercise")
-    public List<Exercises> getAllExercises(){
-        return exercisesService.findAll();
+    public List<String> getAllExercises(){
+        return exercisesService.findUniqueExerciseNames();
     }
 }

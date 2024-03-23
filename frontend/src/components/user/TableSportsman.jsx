@@ -1,10 +1,19 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIdAddRoutine } from '../../redux/features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const TableSportsman = ({handleOpenDialog, handleOpenModal, handleDelete }) => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const getUsers = useSelector((state) => state.user.users);
+
+    const handleAddRoutine = (userId) => {
+        dispatch(setIdAddRoutine(userId))
+        navigate('/register-routine')
+    };
     
     return (
         <div>
@@ -39,7 +48,7 @@ const TableSportsman = ({handleOpenDialog, handleOpenModal, handleDelete }) => {
                                     <Button variant="contained" color="primary" onClick={() => handleDelete(user.userId)}>
                                         eliminar
                                     </Button>
-                                    <Button variant="contained" color="primary" >
+                                    <Button variant="contained" color="primary" onClick={() => handleAddRoutine(user.userId)} >
                                         rutina
                                     </Button>
                                 </TableCell>
