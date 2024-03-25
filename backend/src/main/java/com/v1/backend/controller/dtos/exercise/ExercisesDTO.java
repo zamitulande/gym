@@ -20,6 +20,7 @@ public class ExercisesDTO {
     private String observations;
     private String repeticiones;
     private String levantar_peso;
+    private String documentUrl;
 
     public Exercises toEntity() {
         Exercises exercises = new Exercises();
@@ -27,6 +28,7 @@ public class ExercisesDTO {
         exercises.setObservations(this.observations);
         exercises.setRepeticiones(this.repeticiones);
         exercises.setLevantar_peso(this.levantar_peso);
+        exercises.setDocumentUrl(this.getDocumentUrl());
         return exercises;
     }
 }

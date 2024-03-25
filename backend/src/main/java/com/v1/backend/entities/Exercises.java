@@ -1,5 +1,6 @@
 package com.v1.backend.entities;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,6 @@ public class Exercises {
     private String observations;
     private String repeticiones;
     private String levantar_peso;
-    
 
+    private String documentUrl;
 }
