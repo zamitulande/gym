@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Logo from '../assets/logo.png'
 import Header from './Header'
@@ -10,7 +10,7 @@ const Home = () => {
     const [identificacion, setIdentification] = useState("");
     const [routines, setRoutines] = useState([])
 
-    const handleSubmit = async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await clienteAxios.get(
@@ -23,39 +23,51 @@ const Home = () => {
     }
     return (
         <>
-            <Header />
-            <Box sx={{
-                width: "100%",
-                mt: 6,
-                textAlign: "center",
-            }}>
-                <img src={Logo} alt="Logo" style={{ width: '400px' }} />
-                <Box sx={{
-                    width: "100%",
-                    mt: 6,
-                    textAlign: "center",
-                }}>
-                    <Typography variant="h4" gutterBottom >
-                        Consultar rutina
-                    </Typography>
-                </Box>
-                <form onSubmit={handleSubmit}>
-                <TextField sx={{ border: 2, borderRadius: 1 }}
+            <Grid container justifyContent="center">
+                <Grid container item xs={10} md={8} xl={6}>
+                    <Header />
+                    <Box sx={{
+                        width: "100%",
+                        mt: 6,
+                        textAlign: "center",
+                    }}>
+                        <Grid item xs={12} md={6}>
+                            <img src={Logo} alt="Logo"
+                                width="100%"
+                                style={{ borderRadius: "1rem" }} />
+                        </Grid>
+
+                        <Box sx={{
+                            width: "100%",
+                            mt: 4,
+                            textAlign: "center",
+                        }}>
+                            <Typography variant="h5" gutterBottom >
+                                Consultar rutina
+                            </Typography>
+                        </Box>
+                        <form onSubmit={handleSubmit}>
+                            <TextField sx={{ border: 2, borderRadius: 1 }}
                                 id="name"
                                 name="name"
                                 type='text'
-                                placeholder="Escribe aquí tu nombre"
+                                placeholder="Ingrese su identificacion"
                                 value={identificacion}
-                                onChange={(e)=> setIdentification(e.target.value)}
+                                onChange={(e) => setIdentification(e.target.value)}
                                 fullWidth
                                 margin="normal"
                                 size="small"
                                 required />
-                  <Button variant="contained" type="submit" style={{ marginTop: 10 }}>Consultar</Button>
-                </form>
-                
+                            <Button variant="contained" type="submit" style={{ marginTop: 10 }}>Consultar</Button>
+                        </form>
+
+                    </Box>
+                </Grid>
+
+            </Grid>
+            <Box>
+                {routines.length ? <InfoRoutine routines={routines} /> : null}
             </Box>
-            {routines.length ? <InfoRoutine routines={routines}/> : null}
         </>
 
     )
