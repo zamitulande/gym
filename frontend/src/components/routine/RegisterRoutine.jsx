@@ -90,7 +90,13 @@ const RegisterRoutine = () => {
             const response = await clienteAxios.post(
                 `/admin/usuarios/${userId}/rutina`, newRoutine, config
             );
-            console.log(response.data); // Maneja la respuesta del backend aquí
+            setDataExercise([])
+            setExercises([])
+            setObservations([])
+            setRepeticiones([])
+            setLevantarPeso([])
+            setFecha("")
+            setName("")
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }

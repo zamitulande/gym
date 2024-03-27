@@ -14,7 +14,7 @@ const RegisterExercise = () => {
     const getToken = useSelector((state) => state.user.token);
 
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState({});
     const [name, setName] = useState("")
 
     const handleSubmit = async (e) => {
@@ -34,10 +34,9 @@ const RegisterExercise = () => {
                 }
             }
             const response = await clienteAxios.post("admin/register/exercise",formData, config)
-            console.log(response.data); 
+            setName("")
         } catch (error) {
             console.error('Error al enviar los datos:', error);
-            console.log(formData)
         }
     }
 

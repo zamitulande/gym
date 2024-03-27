@@ -12,7 +12,6 @@ const ModalViewExercises = () => {
     const handleCloseModal = () => {
         dispatch(setOpenModal(!getOpenModal))
     }
-    console.log(getRoutine)
     return (
         <Modal
             open={getOpenModal}
@@ -22,42 +21,48 @@ const ModalViewExercises = () => {
         >
 
             <Box>
-            <TableContainer component={Paper} style={{ maxHeight: 750, overflowY: 'auto' }}>
-            <Table sx={{ minWidth: 300 }} aria-label="customized table">
+                <TableContainer component={Paper} style={{ maxHeight: 750, overflowY: 'auto' }}>
+                    <Table sx={{ minWidth: 300 }} aria-label="customized table">
                         <TableBody>
-                            {getRoutine.exercises.map((exercise)=>{
+                            {getRoutine.exercises.map((exercise) => {
                                 return (
-                                   <React.Fragment  key={exercise.exerciseId}>
-                                    <TableRow>
-                                        <TableCell align="center" className='name'>
-                                            <span className="table-header name">Nombre =</span>
-                                            <span className='name'>{exercise.name}</span>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <span className="table-header">Repetir =</span>
-                                            {exercise.repeticiones}
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <span className="table-header">Levantar Peso = </span>
-                                            {exercise.levantar_peso}
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>
-                                            <span className="table-header">Observaciones =</span>
-                                            {exercise.observations}
-                                        </TableCell>
-                                    </TableRow>
-                                   </React.Fragment>
+                                    <React.Fragment key={exercise.exerciseId}>
+                                        <TableRow>
+                                            <TableCell align="center" className='name'>
+                                                <span className="table-header name">Nombre =</span>
+                                                <span className='name'>{exercise.name}</span>
+                                            </TableCell>
+                                        </TableRow>
+                                        {exercise.items.map((item) => {
+                                            return (
+                                                <React.Fragment key={item.itemId}>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <span className="table-header">Repetir =</span>
+                                                            {item.repeticiones}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <span className="table-header">Levantar Peso = </span>
+                                                            {item.levantarPeso}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <span className="table-header">Observaciones =</span>
+                                                            {item.observation}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </React.Fragment>
+                                            )
+                                        })}
+                                    </React.Fragment>
                                 )
                             })}
                         </TableBody>
                     </Table>
-            </TableContainer>
+                </TableContainer>
                 <Button variant="contained" color="primary" onClick={() => handleCloseModal()}>cerrar</Button>
             </Box>
         </Modal>
