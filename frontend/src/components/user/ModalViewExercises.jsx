@@ -12,6 +12,7 @@ const ModalViewExercises = () => {
     const handleCloseModal = () => {
         dispatch(setOpenModal(!getOpenModal))
     }
+    console.log(getRoutine)
     return (
         <Modal
             open={getOpenModal}

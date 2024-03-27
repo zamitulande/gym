@@ -1,7 +1,10 @@
 package com.v1.backend.controller.dtos.exercise;
 
 
+import java.util.List;
+
 import com.v1.backend.entities.Exercises;
+import com.v1.backend.entities.Items;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,19 +19,15 @@ public class ExercisesDTO {
     
     private Long exerciseId;
     private String name;
-
-    private String observations;
-    private String repeticiones;
-    private String levantar_peso;
     private String documentUrl;
+
+    private List<Items> items;
 
     public Exercises toEntity() {
         Exercises exercises = new Exercises();
         exercises.setName(this.name);
-        exercises.setObservations(this.observations);
-        exercises.setRepeticiones(this.repeticiones);
-        exercises.setLevantar_peso(this.levantar_peso);
         exercises.setDocumentUrl(this.getDocumentUrl());
+        exercises.setItems(this.getItems());
         return exercises;
     }
 }

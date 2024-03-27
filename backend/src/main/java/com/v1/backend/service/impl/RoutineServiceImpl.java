@@ -6,14 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.v1.backend.controller.dtos.exercise.ExercisesDTO;
 import com.v1.backend.controller.dtos.routine.RoutineDTO;
 import com.v1.backend.entities.DayWeek;
 import com.v1.backend.entities.Exercises;
+import com.v1.backend.entities.Items;
 import com.v1.backend.entities.Routine;
 import com.v1.backend.entities.User;
 import com.v1.backend.repository.DayWeekRepository;
 import com.v1.backend.repository.ExerciseRepository;
+import com.v1.backend.repository.ItemRepository;
 import com.v1.backend.repository.RoutineRepository;
 import com.v1.backend.repository.UserRepository;
 import com.v1.backend.service.RoutineService;
@@ -27,10 +28,13 @@ public class RoutineServiceImpl implements RoutineService {
     private RoutineRepository routineRepository;
 
     @Autowired
-    private ExerciseRepository exercisesRepository;
+    private DayWeekRepository dayWeekRepository;
 
     @Autowired
-    private DayWeekRepository dayWeekRepository;
+    private ExerciseRepository exerciseRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -57,19 +61,33 @@ public class RoutineServiceImpl implements RoutineService {
         dayWeek.setRoutines(rutinas);
         dayWeekRepository.save(dayWeek);
 
-        // Crear y asignar los ejercicios a la rutina
+        // Buscar el ejercicio por su nombre en la base de datos
         List<Exercises> exercisesList = new ArrayList<>();
-        for (int i = 0; i < routineDTO.getExercises().size(); i++) {
-            ExercisesDTO exercisesDTO = new ExercisesDTO();
-            exercisesDTO.setName(routineDTO.getExercises().get(i));
-            exercisesDTO.setObservations(routineDTO.getObservations().get(i));
-            exercisesDTO.setRepeticiones(routineDTO.getRepeticiones().get(i));
-            exercisesDTO.setLevantar_peso(routineDTO.getLevantar_peso().get(i));
-            Exercises exercises = exercisesDTO.toEntity();
-            exercisesRepository.save(exercises);
-            exercisesList.add(exercises);
+        for (String exerciseName : routineDTO.getExercises()) {
+            Exercises existingExercise = exerciseRepository.findByName(exerciseName)
+                    .orElseThrow(() -> new EntityNotFoundException("Ejercicio no encontrado: " + exerciseName));
+
+            // Agregar el ejercicio existente a la lista de ejercicios de la rutina
+            exercisesList.add(existingExercise);
         }
+
         routine.setExercises(exercisesList);
+
+        // Crear y asignar los ejercicios a la rutina
+        for (int i = 0; i < routineDTO.getExercises().size(); i++) {
+            Exercises exercise = exercisesList.get(i);
+
+            Items item = new Items();
+            item.setObservation(routineDTO.getObservations().get(i));
+            item.setRepeticiones(routineDTO.getRepeticiones().get(i));
+            item.setLevantarPeso(routineDTO.getLevantar_peso().get(i));
+
+            // Guardar el item en la base de datos utilizando ItemRepository
+            itemRepository.save(item);
+
+            exercise.getItems().add(item);
+
+        }
         routineRepository.save(routine);
 
         // Asignar la fecha de la rutina al usuario

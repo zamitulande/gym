@@ -22,4 +22,5 @@ public class RoutineDTO {
     private List<String> observations;
     private List<String> repeticiones;
     private List<String> levantar_peso;
+    private List<String> documentUrl;
 }

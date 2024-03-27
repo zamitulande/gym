@@ -61,6 +61,7 @@ const RegisterRoutine = () => {
                 }
                     const res = await clienteAxios.get('admin/dashboard/all-exercise', config);
                     setDataExercise(res.data)
+                    console.log(res)
 
             } catch (error) {
                 console.log('error al cargar lista inicial ' + error)

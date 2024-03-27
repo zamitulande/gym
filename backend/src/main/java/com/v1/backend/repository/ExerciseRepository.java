@@ -1,6 +1,7 @@
 package com.v1.backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,6 @@ public interface ExerciseRepository extends JpaRepository<Exercises, Long>{
     
     @Query("SELECT DISTINCT e.name FROM Exercises e")
     List<String> findUniqueExerciseNames();
+
+    Optional<Exercises> findByName(String name);
 }

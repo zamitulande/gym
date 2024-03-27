@@ -25,7 +25,7 @@ public class RoutineController {
     @PostMapping("/usuarios/{userId}/rutina")
     public ResponseEntity<?> asignarRutina(@PathVariable Long userId,
                                            @RequestBody RoutineDTO routineDTO) {
-                    System.out.println(routineDTO);
+                   
         Routine createdRoutine = routineService.createRoutine(userId, routineDTO);
         return ResponseEntity.ok(createdRoutine);
     }
