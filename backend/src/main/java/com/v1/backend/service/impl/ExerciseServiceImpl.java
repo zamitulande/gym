@@ -48,7 +48,7 @@ public class ExerciseServiceImpl implements ExercisesService {
     try (OutputStream os = new FileOutputStream(filePath.toFile())) {
       os.write(file.getBytes());
     }
-    return filePath.toString();
+    return fileName;
   }
 
   @Override
