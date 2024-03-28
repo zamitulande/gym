@@ -5,6 +5,7 @@ export const exerciseSlice =createSlice({
     initialState:{
         exercises: [],
         openModal: false, 
+        urls: []
     },
     reducers:{
         setExercises: (state, action) => {
@@ -13,10 +14,13 @@ export const exerciseSlice =createSlice({
         },
         setOpenModal: (state, action) => {
             state.openModal = action.payload;
+        },
+        setUrls: (state, action)=>{
+            state.urls = action.payload;
         }
     }
 });
 
-export const  {setExercises, setOpenModal} = exerciseSlice.actions;
+export const  {setExercises, setOpenModal, setUrls} = exerciseSlice.actions;
 
 export default exerciseSlice.reducer;

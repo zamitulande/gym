@@ -1,7 +1,7 @@
 import { Box, Button, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setOpenModal } from '../../redux/features/exerciseSlice'
+import { setOpenModal, setUrls } from '../../redux/features/exerciseSlice'
 import { useState } from 'react'
 import clienteAxios from '../../config/Axios';
 
@@ -10,8 +10,7 @@ const ModalViewExercises = () => {
     const dispatch = useDispatch();
     const getOpenModal = useSelector((state) => state.exercise.openModal)
     const getRoutine = useSelector((state) => state.routine.routine)
-
-    const [imageUrls, setImageUrls] = useState([]);
+    const imageUrls = useSelector((state) => state.exercise.urls)
 
     const handleCloseModal = () => {
         dispatch(setOpenModal(!getOpenModal))
@@ -44,7 +43,7 @@ const ModalViewExercises = () => {
                 const imageUrl = await loadImage(exercise.documentUrl);
                 imageUrls[exercise.exerciseId] = imageUrl;
             }
-            setImageUrls(imageUrls);
+            dispatch(setUrls(imageUrls));
         };
 
         if (getOpenModal && getRoutine.exercises.length > 0) {
