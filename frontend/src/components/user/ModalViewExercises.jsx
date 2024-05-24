@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Box, Button, Card, CardContent, CardMedia, Divider, Grid, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setOpenModal, setUrls } from '../../redux/features/exerciseSlice'
@@ -15,7 +15,7 @@ const ModalViewExercises = () => {
     const handleCloseModal = () => {
         dispatch(setOpenModal(!getOpenModal))
     }
-    
+
 
     useEffect(() => {
         const loadImage = async (url) => {
@@ -49,7 +49,7 @@ const ModalViewExercises = () => {
         if (getOpenModal && getRoutine.exercises.length > 0) {
             loadImageUrls();
         }
-        
+
     }, [getOpenModal, getRoutine])
     return (
         <Modal
@@ -60,52 +60,51 @@ const ModalViewExercises = () => {
         >
 
             <Box>
-                <TableContainer component={Paper} style={{ maxHeight: 750, overflowY: 'auto' }}>
-                    <Table sx={{ minWidth: 300 }} aria-label="customized table">
-                        <TableBody>
-                            {getRoutine.exercises.map((exercise) => {
-                                return (
-                                    <React.Fragment key={exercise.exerciseId}>
-                                        <TableRow>
-                                            <TableCell align="center" className='name'>
-                                                <span className="table-header name">Nombre =</span>
-                                                <span className='name'>{exercise.name}</span>
-                                                {imageUrls[exercise.exerciseId] && (
-                                                <img src={imageUrls[exercise.exerciseId]} alt="Exercise" />
-                                            )}
-                                            </TableCell>
-                                        </TableRow>
-                                        {exercise.items.map((item) => {
-                                            return (
-                                                <React.Fragment key={item.itemId}>
-                                                    <TableRow>
-                                                        <TableCell>
-                                                            <span className="table-header">Repetir =</span>
-                                                            {item.repeticiones}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                    <TableRow>
-                                                        <TableCell>
-                                                            <span className="table-header">Levantar Peso = </span>
-                                                            {item.levantarPeso}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                    <TableRow>
-                                                        <TableCell>
-                                                            <span className="table-header">Observaciones =</span>
-                                                            {item.observation}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                </React.Fragment>
-                                            )
-                                        })}
-                                    </React.Fragment>
-                                )
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <Button variant="contained" color="primary" onClick={() => handleCloseModal()}>cerrar</Button>
+                <Paper style={{ maxHeight: 600, overflowY: 'auto', padding: '16px' }}>
+                    <Typography variant="h6">
+                        {`Esta rutina tiene  ${getRoutine.exercises.length} ejercicios asignados`}
+                    </Typography>
+                    <Grid container spacing={2} mt={2}>
+                        {getRoutine.exercises.map((exercise) => (
+                            <Grid item xs={12} sm={6} md={4} lg={3} key={exercise.exerciseId}>
+                                <Divider>Descripción grafica</Divider>
+                                <Card sx={{ maxWidth: 365 }}>
+                                    {imageUrls[exercise.exerciseId] && (
+                                        <CardMedia
+                                            component="img"
+                                            image={imageUrls[exercise.exerciseId]}
+                                            alt={exercise.name}
+                                        />
+                                    )}
+                                    <Divider>Información</Divider>
+                                    <CardContent sx={ {bgcolor: 'primary.main' }}>
+                                        <Typography variant="h6" className="name">
+                                            Ejercicio: {exercise.name}
+                                        </Typography>
+                                        {exercise.items.map((item) => (
+                                            <Box key={item.itemId} sx={{ mt: 2}} >
+                                                <Typography variant="body1">
+                                                    <span className="table-header">Repetir: </span>{item.repeticiones}
+                                                </Typography>
+                                                <Typography variant="body1">
+                                                    <span className="table-header">Levantar Peso: </span>{item.levantarPeso}
+                                                </Typography>
+                                                <Typography variant="body1">
+                                                    <span className="table-header">Observaciones: </span>{item.observation}
+                                                </Typography>
+                                            </Box>
+                                        ))}
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Paper>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                    <Button variant="contained" color="primary" onClick={handleCloseModal}>
+                        Cerrar
+                    </Button>
+                </Box>
             </Box>
         </Modal>
     )
