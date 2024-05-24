@@ -1,5 +1,6 @@
-import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, TextField, useMediaQuery   } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { useTheme } from '@mui/material/styles';
 
 import Header from './Header'
 import clienteAxios from '../config/Axios';
@@ -10,6 +11,9 @@ const Home = () => {
 
     const [identificacion, setIdentification] = useState("");
     const [routines, setRoutines] = useState([])
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -24,6 +28,7 @@ const Home = () => {
             const response = await clienteAxios.get(
                 `/admin/search/${identificacion}?page=${currentPage}&size=${pageSize}`
             );
+            console.log(response)
             setRoutines(response.data.content)
             setTotalPages(response.data.totalPages);
         } catch (error) {
@@ -49,8 +54,8 @@ const Home = () => {
     }, [currentPage]);
 
     return (
-        <>
-            <Grid container justifyContent="center">
+        <Container fixed>
+            <Grid container justifyContent="center" mt={5}>
                 <Grid container item xs={10} md={8} xl={6}>
                     {!login ? <Header/> : null}
                     <Box sx={{
@@ -58,6 +63,8 @@ const Home = () => {
                         textAlign: "center",
                     }}>
                         <form onSubmit={(e) => handleSubmit(e, currentPage)}>
+                           <Grid container alignItems='center' spacing={2}>
+                            <Grid item xs={12} sm={8}>
                             <TextField sx={{ border: 2, borderRadius: 1 }}
                                 id="name"
                                 name="name"
@@ -69,7 +76,11 @@ const Home = () => {
                                 margin="normal"
                                 size="small"
                                 required />
-                            <Button variant="contained" type="submit" style={{ marginTop: 10 }}>Consultar</Button>
+                            </Grid>
+                            <Grid item xs={12} sm={4} style={isMobile ? { marginTop: 16 } : {}}>
+                            <Button variant="contained" type="submit" fullWidth={isMobile}>Consultar</Button>
+                            </Grid>                          
+                           </Grid>
                         </form>
 
                     </Box>
@@ -94,7 +105,7 @@ const Home = () => {
                     </> : null}
             </Box>
 
-        </>
+        </Container>
 
     )
 }
